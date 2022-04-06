@@ -10,7 +10,7 @@
 
 # provider "aws" {
 #   region = "us-east-1"
-  
+
 # }
 
 
@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "testing" {
   }
 }
 resource "aws_s3_bucket_public_access_block" "testing" {
-  bucket = aws_s3_bucket.testing.id
+  bucket                  = aws_s3_bucket.testing.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -32,11 +32,11 @@ resource "aws_s3_bucket_public_access_block" "testing" {
 
 resource "aws_s3_bucket_versioning" "versioning_test" {
 
-    bucket = aws_s3_bucket.testing.id
-    versioning_configuration {
+  bucket = aws_s3_bucket.testing.id
+  versioning_configuration {
     status = "Disabled"
 
-    }
+  }
 }
 
 
@@ -49,15 +49,15 @@ resource "aws_s3_object" "example" {
 # Upload an object
 #resource "aws_s3_bucket_object" "object" {
 
- # bucket = aws_s3_bucket.b1.id
+# bucket = aws_s3_bucket.b1.id
 
-  #key    = "profile"
+#key    = "profile"
 
-  #acl    = "private"  # or can be "public-read"
+#acl    = "private"  # or can be "public-read"
 
-  #source = "myfiles/yourfile.txt"
+#source = "myfiles/yourfile.txt"
 
-  #etag = filemd5("myfiles/yourfile.txt")
+#etag = filemd5("myfiles/yourfile.txt")
 
 #}
 

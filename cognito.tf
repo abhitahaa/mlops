@@ -1,7 +1,7 @@
 # resource "aws_cognito_user_pool" "pool" {
 #   name = "test2456"
 #   auto_verified_attributes = ["email"]
-  
+
 #   schema {
 #     name                     = "terraform"
 #     attribute_data_type      = "Boolean"
