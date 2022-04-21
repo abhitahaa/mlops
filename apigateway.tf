@@ -82,7 +82,7 @@ resource "aws_lambda_permission" "lambda_permission" {
   principal = "apigateway.amazonaws.com"
   #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST${aws_api_gateway_resource.proxy.path}"
   #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST/"
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
+  #source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
 
 
 }
@@ -99,7 +99,7 @@ resource "aws_api_gateway_integration" "lambda_test" {
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.terraform_lambda_func.invoke_arn
   #credentials             = "arn:aws:iam::384941664403:role/apigatewayawsproxyexecrole"
-  #credentials = aws_iam_role.apigateway_role.arn
+  credentials = aws_iam_role.apigateway_role.arn
 }
 
 /* resource "aws_api_gateway_integration" "lambda_gettest" {
