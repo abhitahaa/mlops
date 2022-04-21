@@ -117,6 +117,9 @@ resource "aws_api_gateway_deployment" "api_deployment" {
     aws_api_gateway_integration.lambda_test,
     aws_api_gateway_method.postmethod
   ]
+  variables = {
+     deployed_at = "${timestamp()}"
+  }
 
   #  triggers = {
   # NOTE: The configuration below will satisfy ordering considerations,
