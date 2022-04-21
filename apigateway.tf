@@ -82,7 +82,7 @@ resource "aws_lambda_permission" "lambda_permission" {
   principal = "apigateway.amazonaws.com"
   #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST${aws_api_gateway_resource.proxy.path}"
   #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST/"
-  #source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
 
 
 }
