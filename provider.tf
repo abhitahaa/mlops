@@ -3,6 +3,6 @@
 # though: using the remote backend, Terraform will execute remotely in Terraform
 # Cloud where your token is already securely stored in your workspace!
 
-#provider "aws" {
-# region = "us-east-1"
-#}
+provider "aws" {
+ region = "us-east-1"
+}
