@@ -13,9 +13,9 @@
 
 # }
 
-
+/*
  resource "aws_s3_bucket" "testing" {
-  bucket = "testversion"
+  bucket = "pocops"
 
   tags = {
     Name        = "tstops"
@@ -43,9 +43,9 @@ resource "aws_s3_bucket_versioning" "versioning_test" {
 resource "aws_s3_object" "example" {
   bucket = aws_s3_bucket.testing.id
   key    = "test"
-  source = "/dev/null"
+  source = "/dev/null" 
 }
-
+*/
 # Upload an object
 #resource "aws_s3_bucket_object" "object" {
 
