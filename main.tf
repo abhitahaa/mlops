@@ -15,7 +15,7 @@
 
 
  resource "aws_s3_bucket" "testing" {
-  bucket = "pocops"
+  bucket = "testversion"
 
   tags = {
     Name        = "tstops"
