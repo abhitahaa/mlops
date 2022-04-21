@@ -1,0 +1,34 @@
+{
+  "Version": "2012-10-17",
+  "Id": "default",
+  "Statement": [
+    {
+      "Sid": "AllowAPIInvoke",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Action": "lambda:InvokeFunction",
+      "Resource": "arn:aws:lambda:us-east-1:384941664403:function:helloworld_Lambda_Function",
+      "Condition": {
+        "ArnLike": {
+          "AWS:SourceArn": "arn:aws:execute-api:us-east-1:384941664403:3v7iu8b8e3/*/*/Test_ProbPred_AN_test"
+        }
+      }
+    },
+    {
+      "Sid": "804feb8a-2175-4cd5-bf3e-11fd2d8af7cd",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "apigateway.amazonaws.com"
+      },
+      "Action": "lambda:InvokeFunction",
+      "Resource": "arn:aws:lambda:us-east-1:384941664403:function:helloworld_Lambda_Function",
+      "Condition": {
+        "ArnLike": {
+          "AWS:SourceArn": "arn:aws:execute-api:us-east-1:384941664403:3v7iu8b8e3/*/*/Test_ProbPred_AN_test"
+        }
+      }
+    }
+  ]
+}

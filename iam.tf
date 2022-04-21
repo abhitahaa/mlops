@@ -1,7 +1,7 @@
 ### Creating lambda role ###
 
-resource "aws_iam_role" "lambda_role" {
-  name               = "test_Lambda_Function_Role"
+/* resource "aws_iam_role" "lambda_role" {
+  name               = "lambda_Function_Role"
   assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
@@ -21,7 +21,7 @@ EOF
 
 ### Creating lambda role policy ###
 
-resource "aws_iam_policy" "iam_policy_for_lambda" {
+resource "aws_iam_policy" "s3forlambda" {
 
   name        = "aws_iam_policy_for_terraform_aws_lambda_role_test"
   path        = "/"
@@ -43,5 +43,5 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
 ### Attach IAM Policy to IAM Role ###
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   role       = aws_iam_role.lambda_role.name
-  policy_arn = aws_iam_policy.iam_policy_for_lambda.arn
-}
+  policy_arn = aws_iam_policy.s3forlambda.arn
+} */
