@@ -1,5 +1,5 @@
 resource "aws_iam_role" "apigateway_role" {
-  name               = "testapigatewayRole"
+  name               = "newtestapigatewayRole"
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -23,7 +23,7 @@ EOF
 
 resource "aws_iam_policy" "iam_policy_for_apigateway" {
 
-  name        = "test_policy"
+  name        = "newtest_policy"
   path        = "/"
   description = "My test policy"
 
@@ -59,7 +59,7 @@ data "archive_file" "zip_the_python_code" {
 
 resource "aws_lambda_function" "terraform_lambda_func" {
   filename         = "${path.module}/python/lambda_function.zip"
-  function_name    = "helloworld_Lambda_Function"
+  function_name    = "updated_Lambda_Function"
   role             = aws_iam_role.apigateway_role.arn
   handler          = "lambda_function.lambda_handler"
   runtime          = "python3.8"
