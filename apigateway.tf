@@ -1,5 +1,8 @@
 
 resource "aws_api_gateway_rest_api" "api" {
+  depends_on = [
+    aws_lambda_function.terraform_lambda_func
+  ]
   name        = "new_automate-api-gateway"
   description = "Automate next API Gateway"
   endpoint_configuration {
@@ -13,6 +16,21 @@ resource "aws_api_gateway_resource" "proxy" {
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   path_part   = "Test_ProbPred_AN_test"
 }
+
+
+resource "aws_api_gateway_stage" "example" {
+  deployment_id = aws_api_gateway_deployment.api_deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  stage_name    = "abc"
+}
+
+resource "aws_api_gateway_stage" "testexample" {
+  deployment_id = aws_api_gateway_deployment.api_deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  stage_name    = "prod"
+}
+
+
 
 /* resource "aws_api_gateway_method" "method" {
    rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
@@ -53,9 +71,27 @@ resource "aws_api_gateway_method" "postmethod" {
 
 } */
 
+resource "aws_lambda_permission" "lambda_permission" {
+  depends_on = [aws_api_gateway_method.postmethod]
+  #statement_id = "AllowAPIInvoke"
+  action = "lambda:InvokeFunction"
+  #your lambda function ARN
+  #function_name = "arn:aws:lambda:us-east-1:${data.aws_caller_identity.current.account_id}:function:${aws_lambda_function.terraform_lambda_func.function_name}"
+  #function_name = "helloworld_Lambda_Function"
+  function_name = aws_lambda_function.terraform_lambda_func.arn
+  principal = "apigateway.amazonaws.com"
+  #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST${aws_api_gateway_resource.proxy.path}"
+  #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST/"
+  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
+
+
+}
+
+
 resource "aws_api_gateway_integration" "lambda_test" {
-  depends_on = [ #aws_lambda_permission.lambda_permission,
-  aws_lambda_function.terraform_lambda_func]
+  depends_on = [
+    aws_lambda_permission.lambda_permission
+  ]
   rest_api_id             = aws_api_gateway_rest_api.api.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.postmethod.http_method
@@ -63,7 +99,7 @@ resource "aws_api_gateway_integration" "lambda_test" {
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.terraform_lambda_func.invoke_arn
   #credentials             = "arn:aws:iam::384941664403:role/apigatewayawsproxyexecrole"
-  credentials = aws_iam_role.apigateway_role.arn
+  #credentials = aws_iam_role.apigateway_role.arn
 }
 
 /* resource "aws_api_gateway_integration" "lambda_gettest" {
@@ -78,8 +114,8 @@ resource "aws_api_gateway_integration" "lambda_test" {
 
 resource "aws_api_gateway_deployment" "api_deployment" {
   depends_on = [
-    aws_api_gateway_integration.lambda_test
-    #aws_api_gateway_integration.lambda_gettest
+    aws_api_gateway_integration.lambda_test,
+    aws_api_gateway_method.postmethod
   ]
 
   #  triggers = {
@@ -107,19 +143,6 @@ resource "aws_api_gateway_deployment" "api_deployment" {
 
 }
 
-resource "aws_api_gateway_stage" "example" {
-  deployment_id = aws_api_gateway_deployment.api_deployment.id
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  stage_name    = "abc"
-}
-
-resource "aws_api_gateway_stage" "testexample" {
-  deployment_id = aws_api_gateway_deployment.api_deployment.id
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  stage_name    = "prod"
-}
-
-
 
 
 
@@ -144,23 +167,8 @@ resource "aws_api_gateway_stage" "testexample" {
 
 
 
-data "aws_caller_identity" "current" {}
-
-resource "aws_lambda_permission" "lambda_permission" {
-  depends_on = [aws_api_gateway_method.postmethod]
-  #statement_id = "AllowAPIInvoke"
-  action = "lambda:InvokeFunction"
-
-  #your lambda function ARN
-  function_name = "arn:aws:lambda:us-east-1:${data.aws_caller_identity.current.account_id}:function:${aws_lambda_function.terraform_lambda_func.function_name}"
-  #function_name = "helloworld_Lambda_Function"
-  principal = "apigateway.amazonaws.com"
-  #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST${aws_api_gateway_resource.proxy.path}"
-  #source_arn = "arn:aws:execute-api:us-east-1:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/POST/"
-  source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*${aws_api_gateway_resource.proxy.path}"
 
 
-}
 
 
 #resource "aws_api_gateway_request_validator" "example" {
