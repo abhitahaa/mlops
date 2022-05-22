@@ -25,12 +25,13 @@ resource "aws_secretsmanager_secret" "secretmasterDB" {
  
 resource "aws_secretsmanager_secret_version" "sversion" {
   secret_id = aws_secretsmanager_secret.secretmasterDB.id
-  secret_string = <<EOF
-   {
-    "username": "${var.example.username}"
-    "password": "${var.example.password}"
-   }
-EOF
+  secret_string = jsonencode(var.example)
+#   secret_string = <<EOF
+#    {
+#     "username": "${var.example.username}"
+#     "password": "${var.example.password}"
+#    }
+# EOF
 }
  
 # Importing the AWS secrets created previously using arn.
