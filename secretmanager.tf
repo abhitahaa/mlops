@@ -1,3 +1,12 @@
+variable "example" {
+  default = {
+    username = ""
+    password = ""
+  }
+
+  type = map(string)
+}
+
 # Firstly create a random generated password to use in secrets.
  
 resource "random_password" "password" {
@@ -18,8 +27,8 @@ resource "aws_secretsmanager_secret_version" "sversion" {
   secret_id = aws_secretsmanager_secret.secretmasterDB.id
   secret_string = <<EOF
    {
-    "username": "adminaccount",
-    "password": "${random_password.password.result}"
+    "username": "${var.example.username}"
+    "password": "${var.example.password}"
    }
 EOF
 }
