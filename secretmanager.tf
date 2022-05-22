@@ -9,16 +9,16 @@ variable "example" {
 
 # Firstly create a random generated password to use in secrets.
  
-resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "_%@"
-}
+# resource "random_password" "password" {
+#   length           = 16
+#   special          = true
+#   override_special = "_%@"
+# }
  
 # Creating a AWS secret for database master account (Masteraccoundb)
  
 resource "aws_secretsmanager_secret" "secretmasterDB" {
-   name = "Masteraccoundb"
+   name = "testsecret"
 }
  
 # Creating a AWS secret versions for database master account (Masteraccoundb)
