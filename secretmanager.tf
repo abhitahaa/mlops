@@ -18,7 +18,7 @@ variable "artifactory_project_secret_value" {
 # Creating a AWS secret for database master account (Masteraccoundb)
  
 resource "aws_secretsmanager_secret" "secretmasterDB" {
-   name = "testsecret"
+   name = "databasetesting"
 }
  
 # Creating a AWS secret versions for database master account (Masteraccoundb)
