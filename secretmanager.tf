@@ -1,8 +1,8 @@
-variable "test_user_name" {
+variable "artifactory_project_user_name" {
  description = "username"
 }
 
-variable "test_password" {
+variable "artifactory_project_secret_value" {
  description = "password"
 }
 
