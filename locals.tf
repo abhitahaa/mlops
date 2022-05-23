@@ -1,6 +1,6 @@
 locals {
   credentials = {
-    username = var.test_user_name
-    password = var.test_password
+    username = var.artifactory_project_user_name
+    password = var.artifactory_secret_value
   }
 }
