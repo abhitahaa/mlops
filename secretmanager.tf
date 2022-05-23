@@ -1,3 +1,12 @@
+variable "test_user_name" {
+ description = "username"
+}
+
+variable "test_password" {
+ description = "password"
+}
+
+
 # Firstly create a random generated password to use in secrets.
  
 # resource "random_password" "password" {
