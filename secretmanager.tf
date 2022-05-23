@@ -1,12 +1,3 @@
-variable "example" {
-  default = {
-    username = ""
-    password = ""
-  }
-
-  type = map(string)
-}
-
 # Firstly create a random generated password to use in secrets.
  
 # resource "random_password" "password" {
