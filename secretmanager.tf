@@ -25,7 +25,7 @@ resource "aws_secretsmanager_secret" "secretmasterDB" {
  
 resource "aws_secretsmanager_secret_version" "sversion" {
   secret_id = aws_secretsmanager_secret.secretmasterDB.id
-  secret_string = jsonencode(var.example)
+  secret_string = jsonencode(local.credentials)
 #   secret_string = <<EOF
 #    {
 #     "username": "${var.example.username}"
