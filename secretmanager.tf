@@ -1,5 +1,5 @@
 variable "artifactory_project_user_name" {
- description = "username"
+ description = "usernameforartifactory"
 }
 
 variable "artifactory_project_secret_value" {
